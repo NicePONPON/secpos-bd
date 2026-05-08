@@ -321,6 +321,96 @@ body {
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
 }
 
+/* ── Partners ────────────────────────────────────────────── */
+.partners {
+  background: var(--c-mid);
+  padding: 4rem 0;
+  overflow: hidden;
+}
+
+.partners-heading {
+  text-align: center;
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--c-white);
+  margin-bottom: 2.5rem;
+  padding: 0 1.5rem;
+}
+
+.partners-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 1rem;
+}
+
+.partners-group:last-child { margin-bottom: 0; }
+
+.partners-label {
+  flex-shrink: 0;
+  width: 3.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--c-violet);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-align: center;
+  padding: 0 0.5rem;
+  border-right: 1px solid var(--floor-sep);
+  line-height: 1;
+}
+
+.marquee-outer {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+  padding: 0.5rem 0;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee-track--reverse {
+  animation: marquee-scroll-r 22s linear infinite;
+}
+
+.marquee-outer:hover .marquee-track { animation-play-state: paused; }
+
+.marquee-track span {
+  flex-shrink: 0;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--floor-sep);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.marquee-track span:hover {
+  border-color: var(--c-violet);
+  color: var(--c-violet);
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-scroll-r {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 /* ── Contact ─────────────────────────────────────────────── */
 .contact-section {
   background: var(--c-mid);
