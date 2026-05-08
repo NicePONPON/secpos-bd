@@ -338,30 +338,6 @@ body {
   padding: 0 1.5rem;
 }
 
-.partners-group {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  margin-bottom: 1rem;
-}
-
-.partners-group:last-child { margin-bottom: 0; }
-
-.partners-label {
-  flex-shrink: 0;
-  width: 3.5rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--c-violet);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  text-align: center;
-  padding: 0 0.5rem;
-  border-right: 1px solid var(--floor-sep);
-  line-height: 1;
-}
-
 .marquee-outer {
   flex: 1;
   overflow: hidden;
@@ -385,18 +361,17 @@ body {
 
 .marquee-track img {
   flex-shrink: 0;
-  height: 40px;
+  height: 52px;
   width: auto;
-  max-width: 120px;
+  max-width: 140px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.55;
-  transition: opacity 0.2s ease, filter 0.2s ease;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .marquee-track img:hover {
   opacity: 1;
-  filter: none;
+  transform: scale(1.08);
 }
 
 /* hide images that fail to load */
