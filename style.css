@@ -58,7 +58,7 @@ body {
 
 .hero-sub {
   font-size: clamp(0.85rem, 2.8vw, 1.1rem);
-  opacity: 0.7;
+  opacity: 0.55;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -105,10 +105,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.15;
-  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
 .story-beats {
@@ -155,7 +152,6 @@ body {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: 0.85;
   margin-bottom: 2.5rem;
 }
 
