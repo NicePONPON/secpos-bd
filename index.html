@@ -59,75 +59,40 @@
     </div>
   </section>
 
-  <!-- ── 3. Product Tiers ────────────────────────── -->
+  <!-- ── 3. Solutions Chart ─────────────────────── -->
   <section class="tiers">
     <h2 class="tiers-heading">Our Solutions</h2>
-    <div class="building" role="list">
-
-      <div class="floor" role="listitem">
-        <div class="floor-scale">Medium → Global Chains</div>
-        <div class="floor-products">
-          <div class="product-card">
-            <img src="assets/autopos-logo.png" alt="autopos"
-                 class="product-logo" onerror="this.src='assets/placeholder.svg'">
-            <span class="product-name">autopos</span>
-            <a href="https://autopos.tw/" target="_blank" rel="noopener noreferrer"
-               class="cta-btn">Learn more</a>
-          </div>
-        </div>
+    <div class="chart-wrap">
+      <canvas id="solutions-chart"></canvas>
+      <div class="chart-icons" id="chart-icons">
+        <!-- Single / Small Shop -->
+        <a href="https://centrdx.shop/" target="_blank" rel="noopener noreferrer"
+           class="chart-icon" data-idx="0" data-nudge="0">
+          <img src="assets/centrdx-logo.png" alt="CENTRDX" onerror="this.src='assets/placeholder.svg'">
+          <span>CENTRDX</span>
+        </a>
+        <!-- National Branch -->
+        <a href="https://centrdx.shop/" target="_blank" rel="noopener noreferrer"
+           class="chart-icon" data-idx="1" data-nudge="-1">
+          <img src="assets/nubis-logo.png" alt="Nubis" onerror="this.src='assets/placeholder.svg'">
+          <span>Nubis / Nubis Cast</span>
+        </a>
+        <a href="#contact" class="chart-icon" data-idx="1" data-nudge="1">
+          <img src="assets/vivipos-logo.png" alt="vivipos" onerror="this.src='assets/placeholder.svg'">
+          <span>vivipos</span>
+        </a>
+        <!-- International Branch -->
+        <a href="https://autopos.tw/" target="_blank" rel="noopener noreferrer"
+           class="chart-icon" data-idx="2" data-nudge="-1">
+          <img src="assets/autopos-logo.png" alt="autopos" onerror="this.src='assets/placeholder.svg'">
+          <span>autopos</span>
+        </a>
+        <a href="https://www.imsdom.com/" target="_blank" rel="noopener noreferrer"
+           class="chart-icon" data-idx="2" data-nudge="1">
+          <img src="assets/imsdom-logo.png" alt="IMSDOM" onerror="this.src='assets/placeholder.svg'">
+          <span>IMSDOM</span>
+        </a>
       </div>
-
-      <div class="floor" role="listitem">
-        <div class="floor-scale">National Mid–Large Chains</div>
-        <div class="floor-products">
-          <div class="product-card">
-            <img src="assets/vivipos-logo.png" alt="vivipos"
-                 class="product-logo" onerror="this.src='assets/placeholder.svg'">
-            <span class="product-name">vivipos</span>
-            <a href="#contact" class="cta-btn">Contact us</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="floor" role="listitem">
-        <div class="floor-scale">All Scales</div>
-        <div class="floor-products">
-          <div class="product-card">
-            <img src="assets/nubis-logo.png" alt="Nubis"
-                 class="product-logo" onerror="this.src='assets/placeholder.svg'">
-            <span class="product-name">Nubis / Nubis Cast</span>
-            <a href="https://centrdx.shop/" target="_blank" rel="noopener noreferrer"
-               class="cta-btn">Learn more</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="floor floor--pre-training" role="listitem">
-        <div class="floor-scale">Single / Small Shop</div>
-        <div class="floor-products">
-          <div class="product-card">
-            <img src="assets/centrdx-logo.png" alt="CENTRDX"
-                 class="product-logo" onerror="this.src='assets/placeholder.svg'">
-            <span class="product-name">CENTRDX</span>
-            <a href="https://centrdx.shop/" target="_blank" rel="noopener noreferrer"
-               class="cta-btn">Learn more</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="floor floor--training" role="listitem">
-        <div class="floor-scale">Global ISO Training (Cross-tier)</div>
-        <div class="floor-products">
-          <div class="product-card">
-            <img src="assets/imsdom-logo.png" alt="IMSDOM"
-                 class="product-logo" onerror="this.src='assets/placeholder.svg'">
-            <span class="product-name">IMSDOM</span>
-            <a href="https://www.imsdom.com/" target="_blank" rel="noopener noreferrer"
-               class="cta-btn">Learn more</a>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -143,7 +108,103 @@
     </div>
   </section>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
   <script>
+    /* ── Solutions Chart ───────────────────────────────────────────── */
+    const chartCanvas = document.getElementById('solutions-chart');
+    const chartIcons  = document.querySelectorAll('.chart-icon');
+    let solutionsChart;
+
+    function positionIcons() {
+      if (!solutionsChart) return;
+      const meta = solutionsChart.getDatasetMeta(0);
+      const NUDGE = 44; // px spread between icons sharing same X point
+      const LIFT  = 68; // px above the data point
+
+      chartIcons.forEach(function(icon) {
+        const idx   = parseInt(icon.dataset.idx);
+        const nudge = parseInt(icon.dataset.nudge || 0);
+        const pt    = meta.data[idx];
+        if (!pt) return;
+        icon.style.left = (pt.x + nudge * NUDGE) + 'px';
+        icon.style.top  = (pt.y - LIFT) + 'px';
+      });
+    }
+
+    solutionsChart = new Chart(chartCanvas, {
+      type: 'line',
+      data: {
+        labels: ['Single /\nSmall Shop', 'National\nBranch', 'International\nBranch'],
+        datasets: [{
+          data: [5, 150, 1500],
+          borderColor: '#6ACCAC',
+          borderWidth: 3,
+          backgroundColor: function(ctx) {
+            const chart = ctx.chart;
+            const area  = chart.chartArea;
+            if (!area) return 'rgba(106,204,172,0.12)';
+            const g = chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+            g.addColorStop(0, 'rgba(106,204,172,0.35)');
+            g.addColorStop(1, 'rgba(106,204,172,0.02)');
+            return g;
+          },
+          fill: true,
+          tension: 0.45,
+          pointRadius: 5,
+          pointBackgroundColor: '#6ACCAC',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2,
+          pointHoverRadius: 7,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { onComplete: positionIcons },
+        onResize: function() { setTimeout(positionIcons, 60); },
+        scales: {
+          y: {
+            type: 'logarithmic',
+            min: 1,
+            max: 5000,
+            title: {
+              display: true,
+              text: 'Number of Stores',
+              color: 'rgba(255,255,255,0.4)',
+              font: { size: 10 },
+            },
+            ticks: {
+              callback: function(v) {
+                if (v === 1)    return '1';
+                if (v === 10)   return '10';
+                if (v === 100)  return '100';
+                if (v === 1000) return '1,000+';
+                return null;
+              },
+              color: 'rgba(255,255,255,0.45)',
+              font: { size: 10 },
+            },
+            grid: { color: 'rgba(255,255,255,0.07)' },
+            border: { color: 'rgba(255,255,255,0.18)' },
+          },
+          x: {
+            ticks: {
+              color: 'rgba(255,255,255,0.7)',
+              font: { size: 11, weight: '600' },
+            },
+            grid: { color: 'rgba(255,255,255,0.07)' },
+            border: { color: 'rgba(255,255,255,0.18)' },
+          },
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false },
+        },
+      },
+    });
+
+    window.addEventListener('resize', function() { setTimeout(positionIcons, 80); });
+
     /* ── Brand Story scroll-fade ───────────────────────────────────── */
     const OPACITY_MAX = 0.92;
     const OPACITY_MIN = 0.22;
