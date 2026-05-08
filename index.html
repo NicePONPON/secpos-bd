@@ -304,17 +304,19 @@
         }); });
       });
 
-      // jump back after hold
+      // jump OUT after hold — shoot past the border at full size
       setTimeout(function() {
         els.forEach(function(item, i) {
-          item.el.style.transition = 'transform 0.32s ease-in';
-          item.el.style.transitionDelay = (i * 18) + 'ms';
-          item.el.style.transform = 'translate(-50%,-50%) translate(' + item.odx + 'px,' + item.ody + 'px) scale(0)';
+          item.el.style.transition = 'transform 0.38s cubic-bezier(0.55,0,1,0.45)';
+          item.el.style.transitionDelay = (i * 15) + 'ms';
+          // overshoot past the border by 1.6× the original distance
+          item.el.style.transform = 'translate(-50%,-50%) translate(' +
+            (item.odx * 1.6) + 'px,' + (item.ody * 1.6) + 'px) scale(0.8)';
         });
         setTimeout(function() {
           els.forEach(function(item) { item.el.remove(); });
           _burstActive = false;
-        }, 450);
+        }, 500);
       }, 1500);
     });
 
