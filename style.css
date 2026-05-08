@@ -140,7 +140,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.18) !important;
+  color: rgba(255, 255, 255, 0.18);
 }
 
 /* ── Product Tiers ───────────────────────────────────────── */
@@ -179,6 +179,8 @@ body {
 .floor:last-child { border-bottom: none; }
 
 .floor:hover { background: rgba(255, 255, 255, 0.07); }
+
+.floor--pre-training { border-bottom: none; }
 
 .floor--training {
   background: rgba(255, 255, 255, 0.02);
@@ -335,4 +337,10 @@ body {
   line-height: 1.65;
   color: rgba(26, 26, 78, 0.5);
   padding-top: 0.625rem;
+}
+
+/* ── Accessibility: reduced motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint { animation: none; }
+  .contact-card { transition: opacity 0.55s ease; }
 }
