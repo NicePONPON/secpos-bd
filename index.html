@@ -66,29 +66,30 @@
       <canvas id="solutions-chart"></canvas>
       <div class="chart-icons" id="chart-icons">
         <!-- Single / Small Shop -->
+        <!-- data-x / data-y: pixel offset from default (+ = right / lower). data-size: icon px -->
         <a href="https://centrdx.shop/" target="_blank" rel="noopener noreferrer"
-           class="chart-icon" data-idx="0" data-nudge="0">
+           class="chart-icon" data-idx="0" data-nudge="0" data-x="0" data-y="0">
           <img src="assets/centrdx-logo.png" alt="CENTRDX" onerror="this.src='assets/placeholder.svg'">
           <span>CENTRDX</span>
         </a>
         <!-- National Branch -->
         <a href="https://centrdx.shop/" target="_blank" rel="noopener noreferrer"
-           class="chart-icon" data-idx="1" data-nudge="-1">
+           class="chart-icon" data-idx="1" data-nudge="-1" data-x="0" data-y="40">
           <img src="assets/nubis-logo.png" alt="Nubis" onerror="this.src='assets/placeholder.svg'">
           <span>Nubis / Nubis Cast</span>
         </a>
-        <a href="#contact" class="chart-icon" data-idx="1" data-nudge="1">
+        <a href="#contact" class="chart-icon" data-idx="1" data-nudge="1" data-x="0" data-y="0">
           <img src="assets/vivipos-logo.png" alt="vivipos" onerror="this.src='assets/placeholder.svg'">
           <span>vivipos</span>
         </a>
         <!-- International Branch -->
         <a href="https://autopos.tw/" target="_blank" rel="noopener noreferrer"
-           class="chart-icon" data-idx="2" data-nudge="-1">
+           class="chart-icon" data-idx="2" data-nudge="-1" data-x="0" data-y="0">
           <img src="assets/autopos-logo.png" alt="autopos" onerror="this.src='assets/placeholder.svg'">
           <span>autopos</span>
         </a>
         <a href="https://www.imsdom.com/" target="_blank" rel="noopener noreferrer"
-           class="chart-icon" data-idx="2" data-nudge="1">
+           class="chart-icon" data-idx="2" data-nudge="1" data-x="0" data-y="50">
           <img src="assets/imsdom-logo.png" alt="IMSDOM" onerror="this.src='assets/placeholder.svg'">
           <span>IMSDOM</span>
         </a>
@@ -118,16 +119,24 @@
     function positionIcons() {
       if (!solutionsChart) return;
       const meta = solutionsChart.getDatasetMeta(0);
-      const NUDGE = 44; // px spread between icons sharing same X point
-      const LIFT  = window.innerWidth < 480 ? 48 : 68; // px above the data point
+      const NUDGE = 44;
+      const LIFT  = window.innerWidth < 480 ? 48 : 68;
 
       chartIcons.forEach(function(icon) {
         const idx   = parseInt(icon.dataset.idx);
         const nudge = parseInt(icon.dataset.nudge || 0);
+        const xOff  = parseInt(icon.dataset.x  || 0);
+        const yOff  = parseInt(icon.dataset.y  || 0);
+        const size  = icon.dataset.size;
         const pt    = meta.data[idx];
         if (!pt) return;
-        icon.style.left = (pt.x + nudge * NUDGE) + 'px';
-        icon.style.top  = (pt.y - LIFT) + 'px';
+        icon.style.left = (pt.x + nudge * NUDGE + xOff) + 'px';
+        icon.style.top  = (pt.y - LIFT + yOff) + 'px';
+        if (size) {
+          const img = icon.querySelector('img');
+          img.style.width  = size + 'px';
+          img.style.height = size + 'px';
+        }
       });
     }
 
