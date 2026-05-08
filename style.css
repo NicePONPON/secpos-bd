@@ -341,6 +341,9 @@ body {
 .marquee-outer {
   flex: 1;
   overflow: hidden;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1rem 0;
   mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
 }
