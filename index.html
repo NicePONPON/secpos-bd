@@ -119,7 +119,7 @@
       if (!solutionsChart) return;
       const meta = solutionsChart.getDatasetMeta(0);
       const NUDGE = 44; // px spread between icons sharing same X point
-      const LIFT  = 68; // px above the data point
+      const LIFT  = window.innerWidth < 480 ? 48 : 68; // px above the data point
 
       chartIcons.forEach(function(icon) {
         const idx   = parseInt(icon.dataset.idx);
@@ -136,7 +136,7 @@
       data: {
         labels: ['Single /\nSmall Shop', 'National\nBranch', 'International\nBranch'],
         datasets: [{
-          data: [1, 150, 1500],
+          data: [2, 150, 1500],
           borderColor: '#6ACCAC',
           borderWidth: 3,
           backgroundColor: function(ctx) {

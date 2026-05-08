@@ -266,12 +266,15 @@ body {
 .chart-wrap {
   position: relative;
   max-width: 620px;
-  margin: 0 auto;
+  margin: 4rem auto 0;
   height: 420px;
 }
 
 @media (max-width: 480px) {
-  .chart-wrap { height: 320px; }
+  .chart-wrap {
+    margin-top: 5.5rem;
+    height: 300px;
+  }
 }
 
 .chart-icons {
