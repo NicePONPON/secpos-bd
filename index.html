@@ -6,6 +6,7 @@
   <meta name="description" content="SECPOS 碩豐科技 — AI-Powered Solutions for F&B Chains">
   <meta property="og:title" content="SECPOS 碩豐科技">
   <meta property="og:description" content="AI-Powered Solutions for F&B Chains">
+  <meta property="og:image" content="assets/secpos-logo.png">
   <title>SECPOS 碩豐科技</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -151,22 +152,22 @@
 
   <script>
     /* ── Brand Story scroll-fade ───────────────────────────────────── */
-    var OPACITY_MAX = 0.92;
-    var OPACITY_MIN = 0.22;
-    var DECAY_SCALE = 160;
+    const OPACITY_MAX = 0.92;
+    const OPACITY_MIN = 0.22;
+    const DECAY_SCALE = 160;
 
     function distToOpacity(dist) {
       return OPACITY_MIN + (OPACITY_MAX - OPACITY_MIN) * Math.exp(-dist / DECAY_SCALE);
     }
 
-    var beats = Array.from(document.querySelectorAll('.beat'));
+    const beats = Array.from(document.querySelectorAll('.beat'));
 
     function updateBeatOpacities() {
-      var vpCenter = window.innerHeight / 2;
+      const vpCenter = window.innerHeight / 2;
       beats.forEach(function(el) {
-        var rect = el.getBoundingClientRect();
-        var dist = Math.abs(rect.top + rect.height / 2 - vpCenter);
-        var alpha = distToOpacity(dist);
+        const rect = el.getBoundingClientRect();
+        const dist = Math.abs(rect.top + rect.height / 2 - vpCenter);
+        const alpha = distToOpacity(dist);
         el.style.color = 'rgba(255,255,255,' + alpha + ')';
       });
     }
@@ -175,13 +176,14 @@
     updateBeatOpacities();
 
     /* ── Contact section reveal ────────────────────────────────────── */
-    var contactSection = document.querySelector('.contact-section');
+    const contactSection = document.querySelector('.contact-section');
 
-    var revealObserver = new IntersectionObserver(
+    const revealObserver = new IntersectionObserver(
       function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             contactSection.classList.add('is-visible');
+            revealObserver.disconnect();
           }
         });
       },
