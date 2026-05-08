@@ -134,7 +134,7 @@
     solutionsChart = new Chart(chartCanvas, {
       type: 'line',
       data: {
-        labels: ['Single /\nSmall Shop', 'National\nBranch', 'International\nBranch'],
+        labels: [['單一門市', '小型連鎖'], ['全國連鎖'], ['國際連鎖']],
         datasets: [{
           data: [2, 150, 1500],
           borderColor: '#6ACCAC',
@@ -169,7 +169,7 @@
             max: 5000,
             title: {
               display: true,
-              text: 'Number of Stores',
+              text: '門市數量',
               color: 'rgba(255,255,255,0.4)',
               font: { size: 10 },
             },
