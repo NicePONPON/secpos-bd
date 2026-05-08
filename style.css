@@ -149,7 +149,7 @@ body {
 
 .tiers-heading {
   text-align: center;
-  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-size: clamp(1.65rem, 5.25vw, 2.25rem);
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -330,7 +330,7 @@ body {
 
 .partners-heading {
   text-align: center;
-  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-size: clamp(1.65rem, 5.25vw, 2.25rem);
   font-weight: 600;
   letter-spacing: 0.12em;
   color: var(--c-white);
@@ -383,23 +383,25 @@ body {
 
 .marquee-outer:hover .marquee-track { animation-play-state: paused; }
 
-.marquee-track span {
+.marquee-track img {
   flex-shrink: 0;
-  padding: 0.35rem 0.85rem;
-  border: 1px solid var(--floor-sep);
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.72);
-  white-space: nowrap;
-  background: rgba(255, 255, 255, 0.04);
-  transition: border-color 0.2s, color 0.2s;
+  height: 40px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.55;
+  transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
-.marquee-track span:hover {
-  border-color: var(--c-violet);
-  color: var(--c-violet);
+.marquee-track img:hover {
+  opacity: 1;
+  filter: none;
 }
+
+/* hide images that fail to load */
+.marquee-track img[src=""] ,
+.marquee-track img:not([src]) { display: none; }
 
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }
