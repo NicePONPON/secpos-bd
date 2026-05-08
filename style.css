@@ -142,3 +142,118 @@ body {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.18) !important;
 }
+
+/* ── Product Tiers ───────────────────────────────────────── */
+.tiers {
+  background: var(--c-mid);
+  padding: 5rem 1.5rem;
+}
+
+.tiers-heading {
+  text-align: center;
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 2.5rem;
+}
+
+.building {
+  max-width: 620px;
+  margin: 0 auto;
+  border: 1px solid var(--floor-sep);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.25),
+              0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.floor {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--floor-sep);
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.2s ease;
+}
+
+.floor:last-child { border-bottom: none; }
+
+.floor:hover { background: rgba(255, 255, 255, 0.07); }
+
+.floor--training {
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 2px dashed var(--floor-sep);
+}
+
+.floor-scale {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 0.875rem;
+}
+
+.floor-products {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.floor-products--pair {
+  gap: 0.75rem;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.product-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 5px;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  min-height: 44px;
+  min-width: 44px;
+  background: var(--c-violet);
+  color: var(--c-white);
+  text-decoration: none;
+  border-radius: var(--radius-btn);
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.cta-btn:hover,
+.cta-btn:active { opacity: 0.82; }
+
+/* Desktop: Nubis pair side-by-side */
+@media (min-width: 480px) {
+  .floor-products--pair {
+    flex-direction: row;
+  }
+
+  .floor-products--pair .product-card {
+    flex: 1;
+  }
+}
