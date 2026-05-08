@@ -246,56 +246,66 @@
 
     window.addEventListener('resize', function() { setTimeout(positionIcons, 80); });
 
-    /* ── SECPOS logo — food burst on click ────────────────────────── */
-    const FOOD_EMOJIS = ['🧋','☕','🍵','🥤','🍺','🍸','🍹','🥂','🍔','🍕',
-                         '🌮','🍜','🍣','🍦','🎂','🍩','🧃','🍻','🧁','🍱',
-                         '🥗','🍛','🍝','🥐','🍤','🫖','🍾','🥛'];
+    /* ── SECPOS logo — circle burst on click ──────────────────────── */
+    const FOOD_EMOJIS = ['🧋','☕','🍵','🥤','🍸','🍹','🍔','🍕',
+                         '🌮','🍜','🍣','🍦','🍩','🧃','🍻','🧁',
+                         '🍱','🥗','🍛','🥐','🍤','🫖','🍾','🥛'];
+
+    var _burstActive = false;
 
     document.querySelector('.hero-logo').addEventListener('click', function() {
+      if (_burstActive) return;
+      _burstActive = true;
+
       const logo = this;
       logo.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
-      logo.style.transform = 'scale(1.25) rotate(-8deg)';
+      logo.style.transform = 'scale(1.2) rotate(-6deg)';
       setTimeout(function() { logo.style.transform = ''; }, 350);
 
-      const count = 24;
-      for (let i = 0; i < count; i++) {
+      const heroInner = document.querySelector('.hero-inner');
+      const rect = heroInner.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const radius = Math.max(rect.width, rect.height) / 2 + 72;
+
+      const COUNT = 12;
+      const emojis = FOOD_EMOJIS.slice().sort(function() { return Math.random() - 0.5; }).slice(0, COUNT);
+      const els = [];
+
+      emojis.forEach(function(emoji, i) {
+        const angle = (i / COUNT) * Math.PI * 2 - Math.PI / 2;
+        const ex  = cx + Math.cos(angle) * radius;
+        const ey  = cy + Math.sin(angle) * radius;
+        const odx = -Math.cos(angle) * radius;
+        const ody = -Math.sin(angle) * radius;
+
+        const el = document.createElement('span');
+        el.textContent = emoji;
+        el.style.cssText = 'position:fixed;left:' + ex + 'px;top:' + ey + 'px;' +
+          'font-size:1.55rem;z-index:9999;pointer-events:none;' +
+          'transform:translate(-50%,-50%) translate(' + odx + 'px,' + ody + 'px) scale(0);' +
+          'transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);' +
+          'transition-delay:' + (i * 22) + 'ms;';
+        document.body.appendChild(el);
+        els.push({ el: el, odx: odx, ody: ody });
+
+        requestAnimationFrame(function() { requestAnimationFrame(function() {
+          el.style.transform = 'translate(-50%,-50%) scale(1)';
+        }); });
+      });
+
+      // jump back after hold
+      setTimeout(function() {
+        els.forEach(function(item, i) {
+          item.el.style.transition = 'transform 0.32s ease-in';
+          item.el.style.transitionDelay = (i * 18) + 'ms';
+          item.el.style.transform = 'translate(-50%,-50%) translate(' + item.odx + 'px,' + item.ody + 'px) scale(0)';
+        });
         setTimeout(function() {
-          const el = document.createElement('span');
-          el.textContent = FOOD_EMOJIS[Math.floor(Math.random() * FOOD_EMOJIS.length)];
-
-          const side = Math.floor(Math.random() * 4);
-          let sx, sy;
-          if      (side === 0) { sx = Math.random() * 100; sy = -6; }
-          else if (side === 1) { sx = 106; sy = Math.random() * 100; }
-          else if (side === 2) { sx = Math.random() * 100; sy = 106; }
-          else                 { sx = -6;  sy = Math.random() * 100; }
-
-          const tx = 15 + Math.random() * 70;
-          const ty = 15 + Math.random() * 70;
-          const dx = (tx - sx) / 100 * window.innerWidth;
-          const dy = (ty - sy) / 100 * window.innerHeight;
-          const rot = (Math.random() * 900 - 450);
-          const size = 1.4 + Math.random() * 1.2;
-
-          el.style.cssText = [
-            'position:fixed',
-            'left:' + sx + 'vw',
-            'top:'  + sy + 'vh',
-            'font-size:' + size + 'rem',
-            'z-index:9999',
-            'pointer-events:none',
-            'will-change:transform,opacity',
-          ].join(';');
-
-          el.style.setProperty('--dx', dx + 'px');
-          el.style.setProperty('--dy', dy + 'px');
-          el.style.setProperty('--rot', rot + 'deg');
-          el.style.animation = 'food-burst 1.1s cubic-bezier(0.22,1,0.36,1) forwards';
-
-          document.body.appendChild(el);
-          setTimeout(function() { el.remove(); }, 1200);
-        }, i * 35);
-      }
+          els.forEach(function(item) { item.el.remove(); });
+          _burstActive = false;
+        }, 450);
+      }, 1500);
     });
 
     /* ── Hide missing partner logos ───────────────────────────────── */
