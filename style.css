@@ -76,3 +76,69 @@ body {
   0%, 100% { transform: translateX(-50%) translateY(0px); }
   50%       { transform: translateX(-50%) translateY(7px); }
 }
+
+/* ── Brand Story ─────────────────────────────────────────── */
+.story {
+  background: linear-gradient(180deg, var(--c-violet) 0%, var(--c-mid) 100%);
+  padding: 6rem 1.5rem 7rem;
+}
+
+.story-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.story-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.story-headline {
+  font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.story-beats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.beat {
+  font-size: clamp(0.95rem, 3vw, 1.05rem);
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.22);
+  transition: color 0.35s ease;
+}
+
+.beat--bold {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.beat--pillars {
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+}
+
+.beat--label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.18) !important;
+}
