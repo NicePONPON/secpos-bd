@@ -1,1 +1,78 @@
-/* SECPOS BD Page */
+/* ── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Custom properties ──────────────────────────────────── */
+:root {
+  --c-top:       #1a1a4e;
+  --c-mid:       #0d0d2e;
+  --c-violet:    #7c3aed;
+  --c-white:     #ffffff;
+  --c-contact:   #f8f8fc;
+  --floor-sep:   rgba(255, 255, 255, 0.14);
+  --radius-card: 12px;
+  --radius-btn:  8px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC',
+               'PingFang TC', sans-serif;
+  background: var(--c-top);
+  color: var(--c-white);
+  overflow-x: hidden;
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  min-height: 100svh;
+  background: linear-gradient(160deg, var(--c-top) 0%, var(--c-violet) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  position: relative;
+  text-align: center;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-logo {
+  width: clamp(72px, 25vw, 140px);
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.hero-headline {
+  font-size: clamp(1.75rem, 6.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  font-size: clamp(0.85rem, 2.8vw, 1.1rem);
+  opacity: 0.7;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.55;
+  animation: nudge 2.2s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50%       { transform: translateX(-50%) translateY(7px); }
+}
