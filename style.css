@@ -479,6 +479,15 @@ body {
   text-decoration: underline;
 }
 
+/* ── Food burst animation ────────────────────────────────── */
+@keyframes food-burst {
+  0%   { transform: translate(0,0) rotate(0deg) scale(0.2); opacity: 1; }
+  55%  { opacity: 1; transform: translate(calc(var(--dx)*1.12), calc(var(--dy)*1.12)) rotate(var(--rot)) scale(1.4); }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.9); opacity: 0; }
+}
+
+.hero-logo { cursor: pointer; }
+
 /* ── Accessibility: reduced motion ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .scroll-hint { animation: none; }
